@@ -6,7 +6,7 @@ relative_permalinks: true
 title:            Episteme and Techne
 tagline:          
 url:              http://austinzheng.github.io
-paginate:         1
+paginate:         10
 baseurl:          /
 author:
   name:           Austin Zheng
