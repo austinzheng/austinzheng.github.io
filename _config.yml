@@ -1,0 +1,20 @@
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            Episteme and Techne
+tagline:          
+url:              http://austinzheng.github.io
+paginate:         1
+baseurl:          /
+author:
+  name:           Austin Zheng
+  url:            https://twitter.com/austinzheng
+  email:          austinzheng@gmail.com
+
+# Custom vars
+version:          1.0.0
+pages_list:       
+  Projects: '/projects'
+  About: '/about'
