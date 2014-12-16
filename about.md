@@ -8,7 +8,7 @@ My name is Austin Zheng. I write software and try to spend my time learning new 
 
 In terms of programming languages, I am most proficient currently with **[C][c-link]**, **[Objective-C][objc-link]**, and **[Swift][swift-link]**, and somewhat proficient with **[Python][python-link]**. To this toolbox I am working to add **[Clojure][clojure-link]** (for its Lisp-based expressiveness and homoiconicity), **[Haskell][haskell-link]** (for its powerful type system and functional purity), **[Rust][rust-link]** (a systems language with powerful correctness checking), and **[Erlang][erlang-link]** (for its unsurpassed actor-based concurrency support).
 
-Other technical pursuits I have engaged in or are interested in include embedded systems, FPGAs, robotics, and PCB design.
+Other technical pursuits I have engaged in or are interested in include embedded systems, FPGAs, robotics, PCB design, additive manufacturing (e.g. 3D printing), and CNC machining.
 
 My GitHub username is [austinzheng][az-gh-link], and my Twitter username is also [@austinzheng][az-tw-link]. You can find me on LinkedIn [here][az-li-link], and on Hacker News [here][az-hn-link]. You can construct my email address and send me email by taking my full name (provided verbatim earlier in this paragraph) and combining it with the domain for Google's consumer email service.
 
