@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Enums in Swift"
-date:   2014-12-15 09:00:00
+date:   2014-12-16 09:00:00
 tags: swift
 ---
 
@@ -195,7 +195,7 @@ switch myNode {
 }
 {% endhighlight %}
 
-The next blog post in this series will discuss pattern-matching in more detail.
+The [next blog post]({% post_url 2014-12-16-swift-pattern-matching-switch %}) in this series will discuss pattern-matching in more detail.
 
 [link-enums]:                   http://en.wikipedia.org/wiki/Enumerated_type
 [link-valuetypes]:              https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/ClassesAndStructures.html#//apple_ref/doc/uid/TP40014097-CH13-XID_144

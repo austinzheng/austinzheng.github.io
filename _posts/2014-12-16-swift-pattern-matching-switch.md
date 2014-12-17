@@ -5,7 +5,7 @@ date:   2014-12-16 22:00:00
 tags: swift
 ---
 
-*Part 2 of a series on Swift enums, pattern matching, and generics.*
+*Part 2 of a series on Swift enums, pattern matching, and generics. [Previous post.]({% post_url 2014-12-16-swift-enums %})*
 
 *Parts of this blog post are adapted from a [talk I gave](http://realm.io/news/swift-enums-pattern-matching-generics/) at the Swift Language Users Group.*
 
