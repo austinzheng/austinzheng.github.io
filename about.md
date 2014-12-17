@@ -12,6 +12,8 @@ Other technical pursuits I have engaged in or are interested in include embedded
 
 My GitHub username is [austinzheng][az-gh-link], and my Twitter username is also [@austinzheng][az-tw-link]. You can find me on LinkedIn [here][az-li-link], and on Hacker News [here][az-hn-link]. You can construct my email address and send me email by taking my full name (provided verbatim earlier in this paragraph) and combining it with the domain for Google's consumer email service.
 
+**NOTE**: I may edit older entries from time to time. 'Major' edits (those that significantly expand upon or change the meaning of a post) will be accompanied by a notice. For a full revision history you are welcome to look through the backing git repository found [here](https://github.com/austinzheng/austinzheng.github.io).
+
 
 ## The title ##
 
