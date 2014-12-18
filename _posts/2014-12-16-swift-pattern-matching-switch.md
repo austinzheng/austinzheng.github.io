@@ -215,6 +215,6 @@ let color : UIColor = {
 
 We declare the constant `color` of type `UIColor`. We then initialize it to the result of running an anonymous closure (` = { ... }()`). Finally, we write code in the closure to return one of several colors depending on the value of `name`. This closure's type is inferred to be `() -> UIColor`, so running it produces a `UIColor` value.
 
-Thank you for reading this rather long post about Swift's pattern-matching switch statement! The next blog post in this series will discuss customizing the pattern-matching system.
+Thank you for reading this rather long post about Swift's pattern-matching switch statement! The [next blog post]({% post_url 2014-12-17-custom-pattern-matching %}) in this series will discuss customizing the pattern-matching system.
 
 [link-pm]:      https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Patterns.html
