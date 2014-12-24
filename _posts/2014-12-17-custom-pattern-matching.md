@@ -187,7 +187,7 @@ There it is! However, the aesthetics leave something to be desired. It's possibl
 
 Although this example was fun to build, it isn't terribly practical to use (and I would advise you to think long and hard before trying something like this in a production codebase). Its primary purpose is demonstrating what sorts of strange things you can do with the pattern-matching expression operator.
 
-The next blog post in this series will discuss protocols, laying the foundation for generics.
+The [next blog post]({% post_url 2014-12-24-protocols-in-swift %}) in this series will discuss protocols, laying the foundation for generics.
 
 
 [link-exptr]:       https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Patterns.html#//apple_ref/doc/uid/TP40014097-CH36-XID_1020
