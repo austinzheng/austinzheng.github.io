@@ -29,7 +29,7 @@ Let's break this protocol declaration down:
 * The protocol is declared with the `protocol` keyword, and its name is `MyProtocol`
 * The first item the protocol defines is an `Int`-typed property named `someProperty`; this property must be readable and writable
 * The second item the protocol defines is a method that takes two `Int`s as arguments and returns a `String`
-* The protocol declares signatures for its property and method, but it doesn't define how they are implemented
+* The protocol declares interfaces for its property and method, but it doesn't define how they are implemented
 
 Now that we have a protocol, what can we do with it? It turns out that protocols exist so that *other types can conform to them*. A type can declare that it conforms to one or more protocols. When it does so, it is promising the compiler that it will provide implementations for all the methods and properties declared in those protocols.
 
@@ -154,7 +154,7 @@ Just as protocols forced you to fulfill a promise by implementing some methods o
 
 One practical use of protocols is to define flexible parent-child relationships.
 
-For example, the `UITableView` class in Cocoa implements a list-style UI widget (a *table view*) consisting of some number of rows, called *cells*. The table view needs some way to figure out how many rows it should display, exactly what cell it should display for a given row, what to do when a given row is tapped, and so forth. For now, let's just worry about how the table view knows how many rows to display.
+For example, the `UITableView` class in Cocoa implements a list-style UI widget (a [*table view*][link-tableview]) consisting of some number of rows, called *cells*. The table view needs some way to figure out how many rows it should display, exactly what cell it should display for a given row, what to do when a given row is tapped, and so forth. For now, let's just worry about how the table view knows how many rows to display.
 
 If we were inventing `UITableView`, one way we might solve this problem is by defining a `UITableViewDataSource` class with the method `numberOfRows() -> Int`. The table view would then have a `dataSource` property of type `UITableViewDataSource`:
 
@@ -190,7 +190,7 @@ myTableView.dataSource = MyDataSource()
 
 Developers would subclass the `UITableViewDataSource` class and override the `numberOfRows()` method to return however many rows they wanted, and then assign to their table view's `dataSource` property an instance of this custom subclass. Later, the table view would  query the subclass by calling the `numberOfRows()` method and getting the number of rows it should display.
 
-This solution seems great, but it forces our developers to make their data source objects subclasses of our `UITableViewDataSource` class. This seems excessively restrictive, especially since the table view only really cares that it has a `numberOfRows()` method to call on its `dataSource`.
+This solution works fine, but it forces our developers to make their data source objects subclasses of our `UITableViewDataSource` class. This might be too restrictive, especially since the table view only really cares that it has a `numberOfRows()` method to call on its `dataSource`.
 
 A better option would be to ditch our class and instead create a `UITableViewDataSource` *protocol* instead. This protocol would declare the `numberOfRows()` method. Then, our developers would be able to create any type of data source object, be it a class or struct, and declare that their data source conforms to our `UITableViewDataSource` protocol. Finally, they'd implement the `numberOfRows()` method in their data source object. Everything else would work the same way:
 
@@ -226,7 +226,7 @@ In fact, the actual `UITableView` class works very much like the hypothetical ta
 
 ### Aggregating functionality ###
 
-Protocols can also be used to aggregate functionality for a given type.
+Protocols can also be used to [aggregate functionality][link-composition] for a given type.
 
 For example, let's say we are building a computer game, and we're writing a struct to represent the player character. Player characters are *named* objects in the game, because the player has a name, and they can be *healed* (like non-player characters and monsters, but not items). Player characters can also be *moved*, since the player is a mighty hero/heroine of prophecy (and not a tree). A sketch of how we might implement such a model follows:
 
@@ -246,14 +246,14 @@ protocol Moveable {
 // A PlayerCharacter has a name, therefore it conforms to Nameable
 // A PlayerCharacter can be healed, therefore it conforms to Healable
 // A PlayerCharacter can be moved, therefore it conforms to Moveable
-struct PlayerCharacter : Nameable, Healable, Moveable {
+class PlayerCharacter : Nameable, Healable, Moveable {
   var name : String = // ...
   func heal(hitPointsToHeal: Int) { /* ... */ }
   func move(direction: Direction, distance: Double) { /* ... */ }
 }
 {% endhighlight %}
 
-Many of the types included in the Swift standard library are defined in such a way. For example, the `CFunctionPointer` struct in Swift, which represents a C function pointer, has the following signature:
+Many of the types included in the Swift standard library are defined in such a way. For example, the `CFunctionPointer` struct in Swift, which represents a [C function pointer][link-fnptr], has the following signature:
 
 {% highlight swift %}
 struct CFunctionPointer<T> : Equatable, Hashable, NilLiteralConvertible {
@@ -302,7 +302,8 @@ Note that even though this JSON example isn't practical, the technique itself is
 {% highlight swift %}
 // A custom type, representing a two-dimensional point
 struct Point : Printable {
-  let x, y : Int
+  let x : Int
+  let y : Int
   var description : String { return "(\(x), \(y))" }
 }
 
@@ -372,7 +373,7 @@ doSomething(MyStruct())
 
 ### Extensions and protocols ###
 
-Swift's **extensions** are a way to add functionality to an existing type. Extensions can be used to add protocol conformance to an existing type, as demonstrated by this (admittedly contrived) example:
+Swift's [**extensions**][link-extensions] are a way to add functionality to an existing type. Extensions can be used to add protocol conformance to an existing type, as demonstrated by this (admittedly contrived) example:
 
 {% highlight swift %}
 protocol NotEmptyProtocol {
@@ -399,7 +400,7 @@ Another common use of extensions is to break the definition of a single type int
 
 ### Initializers, subscripts, and operators ###
 
-In addition to methods and properties, protocols can also define initializers, subscripts, and operators.
+In addition to methods and properties, protocols can also define [initializers][link-initializers], [subscripts][link-subscripts], and [operators][link-operators].
 
 A protocol declares an **initializer** just like it would a method:
 
@@ -481,4 +482,11 @@ Thanks for reading this rather long post about Swift's protocols! The next blog 
 [link-wikiprotocols]:     http://en.wikipedia.org/wiki/Protocol_(object-oriented_programming)
 [link-protocols]:         https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html
 [link-javainterface]:     http://docs.oracle.com/javase/tutorial/java/concepts/interface.html
+[link-tableview]:         https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/TableView_iPhone/AboutTableViewsiPhone/AboutTableViewsiPhone.html
+[link-composition]:       http://en.wikipedia.org/wiki/Composition_over_inheritance
+[link-fnptr]:             http://en.wikipedia.org/wiki/Function_pointer
+[link-extensions]:        https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Extensions.html
+[link-initializers]:      https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Initialization.html
+[link-subscripts]:        https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Subscripts.html
+[link-operators]:         https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AdvancedOperators.html#//apple_ref/doc/uid/TP40014097-CH27-XID_84
 [link-interop]:           https://developer.apple.com/library/ios/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html#//apple_ref/doc/uid/TP40014216-CH10-XID_86
