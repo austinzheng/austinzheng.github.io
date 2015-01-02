@@ -7,7 +7,7 @@ tags: swift
 
 *Part 1 of a series on Swift enums, pattern matching, and generics.*
 
-*Parts of this blog post are adapted from a [talk I gave](http://realm.io/news/swift-enums-pattern-matching-generics/) at the Swift Language Users Group.*
+*Parts of this blog post are adapted from a [talk](http://realm.io/news/swift-enums-pattern-matching-generics/) I gave at the Swift Language Users Group.*
 
 Like many programming languages both ancient and modern, Swift supports [**enums**][link-enums]. However, Swift's enums are considerably more powerful than those found in some of its predecessors.
 

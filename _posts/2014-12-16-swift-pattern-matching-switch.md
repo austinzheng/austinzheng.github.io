@@ -7,7 +7,7 @@ tags: swift
 
 *Part 2 of a series on Swift enums, pattern matching, and generics. [Previous post.]({% post_url 2014-12-16-swift-enums %})*
 
-*Parts of this blog post are adapted from a [talk I gave](http://realm.io/news/swift-enums-pattern-matching-generics/) at the Swift Language Users Group.*
+*Parts of this blog post are adapted from a [talk](http://realm.io/news/swift-enums-pattern-matching-generics/) I gave at the Swift Language Users Group.*
 
 Swift includes support for [**pattern matching**][link-pm] through the `switch` control-flow construct. Like in C or Objective-C, the switch construct attempts to match an input expression to one of several cases, executing code corresponding to the first matching case.
 

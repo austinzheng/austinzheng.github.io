@@ -7,7 +7,7 @@ tags: swift
 
 *Part 3 of a series on Swift enums, pattern matching, and generics. [Previous post.]({% post_url 2014-12-16-swift-pattern-matching-switch %})*
 
-*Parts of this blog post are adapted from a [talk I gave](http://realm.io/news/swift-enums-pattern-matching-generics/) at the Swift Language Users Group.*
+*Parts of this blog post are adapted from a [talk](http://realm.io/news/swift-enums-pattern-matching-generics/) I gave at the Swift Language Users Group.*
 
 By now, if you've been following along with the other posts in this series, you've seen how the switch statement's pattern matching works in a variety of different scenarios. It turns out, though, that you can define novel pattern matching behavior as well.
 

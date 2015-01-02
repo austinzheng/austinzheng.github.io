@@ -7,7 +7,7 @@ tags: swift
 
 *Part 4 of a series on Swift enums, pattern matching, and generics. [Previous post.]({% post_url 2014-12-17-custom-pattern-matching %})*
 
-*Parts of this blog post are adapted from a [talk I gave](http://realm.io/news/swift-enums-pattern-matching-generics/) at the Swift Language Users Group.*
+*Parts of this blog post are adapted from a [talk](http://realm.io/news/swift-enums-pattern-matching-generics/) I gave at the Swift Language Users Group.*
 
 Having covered Swift's pattern-matching switch statement to some level of detail, we now turn our attention to another one of Swift's major features: generics. In order to understand how generics work in Swift, though, it is first necessary to understand Swift's [**protocols**][link-protocols].
 
@@ -476,7 +476,7 @@ A protocol can be declared with the modifier `@objc`:
 
 The Apple [interop guide][link-interop] has more information on using `@objc` protocols.
 
-Thanks for reading this rather long post about Swift's protocols! The next blog post in this series will discuss generics in Swift.
+Thanks for reading this rather long post about Swift's protocols! The [next blog post]({% post_url 2015-01-02-swift-generics-pt-1 %}) in this series will discuss generics in Swift.
 
 
 [link-wikiprotocols]:     http://en.wikipedia.org/wiki/Protocol_(object-oriented_programming)
