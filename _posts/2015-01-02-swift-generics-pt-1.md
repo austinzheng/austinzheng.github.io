@@ -28,7 +28,7 @@ This function is quite straightforward. The `inout` modifier on `this` (and `tha
 {% highlight swift %}
 var a = 10
 var b = 20
-`
+
 println("a = \(a), b = \(b)")    // prints out "a = 10, b = 20"
 swapInts(&a, &b)
 println("a = \(a), b = \(b)")    // prints out "a = 20, b = 10"
@@ -61,7 +61,7 @@ func swap(inout this: Any, inout that: Any) {
 }
 {% endhighlight %}
 
-Excellent! We've replaced both `swapInts` and `swapStrings` with a single function that can be used with any type, not just strings and integers! However, our elegant solution comes with one glaring problem: it is no longer type-safe at compile-time. For example:
+Excellent! We've replaced both `swapInts` and `swapStrings` with a single function that can be used with any type, not just strings and integers! However, our elegant solution comes with one glaring problem: it is no longer type safe at compile-time. For example:
 
 {% highlight swift %}
 var firstInt = 10
@@ -93,7 +93,7 @@ func swap<T>(inout this: T, inout that: T) {
 }
 {% endhighlight %}
 
-The `<T>` following the function name indicates that we are declaring a *type parameter* named `T`. `T` by itself isn't a concrete type, but it can be thought of as a 'variable' representing another type, such as `String` or `Int`, when used in the function signature.
+The `<T>` following the function name indicates that we are declaring a *type parameter* named `T`. `T` by itself isn't a concrete type, but it can be thought of as a wildcard representing another type, such as `String` or `Int`, when used in the function signature.
 
 We also note that both our parameters are of type `T`, which means that they both have to be the same type. So if we pass a `String` for `this`, we must pass a `String` for `that` as well.
 
@@ -102,6 +102,10 @@ It turns out that there is actually a `swap` function included in Swift's standa
 {% highlight swift %}
 func swap<T>(inout a: T, inout b: T)
 {% endhighlight %}
+
+This sort of programming technique is known more formally as [*parametric polymorphism*][link-ppoly]. In parametric polymorphism, a function is written so that it can apply the same basic operations to its input values no matter what types the inputs are.
+
+There are other forms of polymorphism as well; these include *ad-hoc polymorphism*, where a function or operator is overloaded so, for example, `==` compares integers differently than it compares strings, and *inclusion polymorphism*, where you can use a subclass of `Foo` anywhere you'd ordinarily use a `Foo`.
 
 ### So, their purpose is? ###
 
@@ -270,3 +274,4 @@ If you are still here, thanks for reading! Generics are not a trivial topic, esp
 
 [link-gp]:          http://en.wikipedia.org/wiki/Generic_programming
 [link-generics]:    https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Generics.html
+[link-ppoly]:       http://en.wikipedia.org/wiki/Parametric_polymorphism
