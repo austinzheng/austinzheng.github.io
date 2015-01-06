@@ -390,7 +390,7 @@ I've only barely scratched Haskell's shiny, functional surface, but I already li
 By the way, if you've read this far and you've noticed an error, something that is unclear, or something I am not doing in an idiomatic fashion, please do drop me a note! Being given the opportunity to fix a mistake would definitely make my day.
 
 
-[link-haskell]:          http://en.wikipedia.org/wiki/Haskell_(programming_language)
+[link-haskell]:          https://www.haskell.org/
 [link-statictyping]:     http://en.wikipedia.org/wiki/Type_system#Static_type-checking
 [link-type]:             http://en.wikipedia.org/wiki/Data_type
 [link-laziness]:         http://en.wikipedia.org/wiki/Lazy_evaluation
