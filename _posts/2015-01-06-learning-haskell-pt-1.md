@@ -96,7 +96,7 @@ addOne n = n + 1
 
 The first line indicates that we are declaring a function named `addOne`. This function takes in a single `Integer` argument and returns an `Integer`.
 
-The second line indicates that for any input to our function, which we'll call `n`, we will return `n + 1`.
+The second line indicates that for any input to our function, we will refer to this input as `n`, and we will return `n + 1`.
 
 Note that the `=` is being used in its mathematical sense: we are saying that anywhere in our program we have `addOne n`, we can replace it with `n + 1` and get the exact same result. This is an example of referential transparency in action, since our function always returns the same value for a given input.
 
@@ -305,7 +305,7 @@ eviscerate ["foo","bar","baz","qux"]
 
 ## No `nil`? ##
 
-If you've been following along closely, you may be ready to eviscerate me for using `""`, `"<unknown>"`, and other such values as placeholders for nothing, instead of something like `nil`.
+If you've been following along closely, you may be unhappy that I am using `""`, `"<unknown>"`, and other such values as placeholders for nothing, instead of something like `nil`.
 
 After all, what if we called `eviscerate` on a list containing empty strings, rather than an empty list? Indeed, using these placeholder values is generally bad programming practice, and only done here to demonstrate the other concepts more easily. 
 
@@ -314,9 +314,9 @@ In fact, Haskell doesn't have `nil`. Instead, it has a special `Maybe` type. `Ma
 
 ## Recursion ##
 
-Up to this point, we have not declared a single variable whose value we mutated, nor have we written any imperative-style `for` loops. The functional style comes with its own tools for repetition, such as the map and fold higher-order functions and recursion. For now, we'll look at recursion.
+Up to this point, we have not declared a single variable whose value we mutated, nor have we written any imperative-style `for` loops. The functional style comes with its own tools for repetition. These include higher-order functions like map and fold, as well as recursion. For now, we'll look at recursion.
 
-[Recursion][link-recur] is a technique in which a problem is solved in terms of smaller versions of the same problem. More concretely, we use recursion when a function calls itself with different arguments to continue solving a problem. At some point our function decides that it's reached the 'bottom', and returns an actual value instead of calling itself again. This 'bottom' of the problem is often referred to as the *base case*.
+[Recursion][link-recur] is a technique in which a problem is solved in part by solving smaller versions of the same problem. More concretely, we use recursion when a function calls itself with different arguments to continue solving a problem. At some point our function decides that it's reached the 'bottom', and returns an actual value instead of calling itself again. This 'bottom' of the problem is often referred to as the *base case*.
 
 Here is a very simple example of recursion, the oft-seen naive method of generating [Fibonacci numbers][link-fib]:
 
@@ -385,7 +385,7 @@ squareOverTens [1,2,11,3,4,12]
 
 ## Personal notes ##
 
-I've only so far learned a very tiny bit of what Haskell has to offer, but I already like what I’ve seen so far. I’ve tried some of these techniques before in Scala and Swift, but Haskell feels refreshingly clear and concise, purpose-built for this style of programming. The fact that functions are referentially transparent makes reasoning about what they do easier, and faciliates building programs up in a principled fashion from smaller pieces. There is no need to worry that calling a function is somehow going to change hidden state whose effects don't show up until much later.
+I've only so far seen a very tiny bit of what Haskell has to offer, but I already like what I’ve seen so far. I’ve tried some of these techniques before in Scala and Swift, but Haskell feels refreshingly clear and concise, purpose-built for this style of programming. The fact that functions are referentially transparent makes reasoning about what they do easier, and faciliates building programs up in a principled fashion from smaller pieces. There is no need to worry that calling a function is somehow going to change hidden state whose effects don't show up until much later.
 
 By the way, if you've read this far and you've noticed an error, something that is unclear, or something I am not doing in an idiomatic fashion, please do drop me a note! Being given the opportunity to fix a mistake would definitely make my day.
 
