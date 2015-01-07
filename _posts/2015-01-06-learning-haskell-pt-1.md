@@ -7,7 +7,7 @@ tags: haskell
 
 And now for something completely different! One thing I've been wanting to do for a while is to begin learning [**Haskell**][link-haskell], and I finally got the chance to sit down and play around with it today.
 
-This (series) of blog posts *isn't* intended to be a full-fledged introduction to the language (as if I were even remotely qualified to write such a thing). Instead, they are reflections and notes as to what I've learned thus far, for my benefit and that of anyone interested.
+This (series) of blog posts *isn't* intended to be a full-fledged introduction to the language (as if I were even remotely qualified to write such a thing). However, it is meant as a step-by-step exposition as to how I am learning/learned the language. The hope is that reading through these notes might offer a helpful perspective for those looking to learn Haskell themselves.
 
 
 ## What is Haskell? ##
@@ -383,9 +383,9 @@ squareOverTens [1,2,11,3,4,12]
 {% endhighlight %}
 
 
-## Parting thoughts ##
+## Personal notes ##
 
-I've only barely scratched Haskell's shiny, functional surface, but I already like what I've seen so far. I've tried some of these techniques before in Scala and Swift, but Haskell feels refreshingly clear and concise, purpose-built for this style of programming. Being forced to write functions so that they are referentially transparent is a great experience, and I'm looking forwards to seeing how monads provide Haskell programmers with side effects.
+I've only so far learned a very tiny bit of what Haskell has to offer, but I already like what I’ve seen so far. I’ve tried some of these techniques before in Scala and Swift, but Haskell feels refreshingly clear and concise, purpose-built for this style of programming. The fact that functions are referentially transparent makes reasoning about what they do easier, and faciliates building programs up in a principled fashion from smaller pieces. There is no need to worry that calling a function is somehow going to change hidden state whose effects don't show up until much later.
 
 By the way, if you've read this far and you've noticed an error, something that is unclear, or something I am not doing in an idiomatic fashion, please do drop me a note! Being given the opportunity to fix a mistake would definitely make my day.
 
