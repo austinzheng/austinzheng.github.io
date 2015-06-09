@@ -10,7 +10,7 @@ In terms of programming languages, I am most proficient currently with **[C][c-l
 
 Other technical pursuits I have engaged in or are interested in include embedded systems, FPGAs, robotics, PCB design, additive manufacturing (e.g. 3D printing), and CNC machining.
 
-My GitHub username is [austinzheng][az-gh-link], and my Twitter username is also [@austinzheng][az-tw-link]. You can find me on LinkedIn [here][az-li-link], and on Hacker News [here][az-hn-link]. You can construct my email address and send me email by taking my full name (provided verbatim earlier in this paragraph) and combining it with the domain for Google's consumer email service.
+My GitHub username is [austinzheng][az-gh-link], and my Twitter username is also [@austinzheng][az-tw-link]. You can find me on LinkedIn [here][az-li-link], and on lobste.rs [here][az-ls-link]. You can construct my email address and send me email by taking my full name (provided verbatim earlier in this paragraph) and combining it with the domain for Google's consumer email service.
 
 **NOTE**: I may edit older entries from time to time. 'Major' edits (those that significantly expand upon or change the meaning of a post) will be accompanied by a notice. For a full revision history you are welcome to look through the backing git repository found [here](https://github.com/austinzheng/austinzheng.github.io).
 
@@ -31,4 +31,4 @@ My GitHub username is [austinzheng][az-gh-link], and my Twitter username is also
 [az-gh-link]:     https://github.com/austinzheng/
 [az-tw-link]:     https://twitter.com/austinzheng
 [az-li-link]:     https://www.linkedin.com/in/austinzheng
-[az-hn-link]:     https://news.ycombinator.com/user?id=austinz
+[az-ls-link]:     https://lobste.rs/u/austinz
