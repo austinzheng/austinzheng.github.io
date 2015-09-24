@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Swift 2.0: Control Flow and Error Handling"
+title: "Swift 2: Control Flow and Error Handling"
 date:   2015-06-08 18:00:00
 tags: swift
 ---
@@ -248,7 +248,7 @@ In order to *catch* errors that are thrown, we use the `do`-`catch` construct. L
 {% highlight swift %}
 func tryNumericisingIP() {
   // Get the value from the user
-  print("Enter four-part IP here: > ", appendNewline: false)
+  print("Enter four-part IP here: > ", terminator: "")
   let maybeInput = readLine(stripNewline: true)
 
   // Only continue if we actually received a value
