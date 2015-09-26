@@ -24,7 +24,7 @@ enum Number {
 
 ### Checking for a certain case
 
-Use case: we want to check whether a value corresponds to a certain case. This works regardless of whether the case has associated values or not, but does not unbox the value.
+Use case: we want to check whether a value corresponds to a certain case. This works regardless of whether the case has associated values or not, but does not unbox the values (if they exist).
 
 {% highlight swift %}
 let myNumber : Number = // ...
@@ -34,7 +34,7 @@ if case .IntegerValue = myNumber {
 }
 {% endhighlight %}
 
-The *pattern*, `case .IntegerValue`, comes first, and the value to be matched, the variable `myNumber`, comes after the equals sign.
+The *pattern*, `case .IntegerValue`, comes first, and the value to be matched, the variable `myNumber`, comes after the equals sign. This might seem counterintuitive, but it's similar to how the optional-unwrapping `if let a = a` is written: the value that is being checked comes after the equals sign.
 
 The equivalent Swift 1.2 version, using `switch`, follows:
 
@@ -70,10 +70,9 @@ func getObjectInArray<T>(array: [T], atIndex index: Number) -> T? {
 }
 {% endhighlight %}
 
-
 ### Qualifying with `where` clauses
 
-As with any `case` in a `switch` statement, a `where` clause can optionally follow a pattern to provide additional constraints. Let's modify the `getObjectInArray:atIndex:` function from the previous example:
+As with any `case` in a `switch` statement, a `where` clause can optionally follow a pattern to provide an additional constraint. Let's modify the `getObjectInArray:atIndex:` function from the previous example:
 
 {% highlight swift %}
 func getObjectInArray<T>(array: [T], atIndex index: Number) -> T? {
@@ -92,7 +91,7 @@ Swift's `if` statement is surprisingly capable. An `if` statement can have multi
 
 * **Simple logical test** (e.g. `foo == 10 || bar > baz`). There can only be one such predicate, and it must be placed first.
 * **Optional unwrapping** (e.g. `let foo = maybeFoo where foo > 10`). If an optional unwrapping predicate immediately follows another optional unwrapping predicate, the `let` can be omitted. Can be fitted with a `where` qualifier.
-* **Pattern matching** (e.g. `case let .Bar(String) = theValue`), as discussed above. Can be fitted with a `where` qualifier.
+* **Pattern matching** (e.g. `case let .Bar(something) = theValue`), as discussed above. Can be fitted with a `where` qualifier.
 
 Predicates are evaluated in the order they are defined, and no predicates after a failing predicate will be evaluated. Here is a (contrived) example of a complicated `if` statement.
 
@@ -154,12 +153,12 @@ Farhad, who studies Mechanical Engineering, is present.
 
 In the `for`-`in` predicate, the pattern each element is compared against precedes the `in` keyword, and the sequence to iterate over follows.
 
-Note that, as with patterns in `switch` statements, we can unwrap multiple associated values, and ignore those we don't care about using `_`. We could, if necessary, also add a `where` clause with additional conditions to further constrain which elements we iterate over.
+Note that, as with patterns in `switch` statements, we can unwrap multiple associated values, and ignore those we don't care about using `_`. We could, if necessary, also add a `where` clause with an additional condition to further constrain which elements we iterate over.
 
 
 ## Pattern matching using `while`
 
-Pattern matching can also be used in conjunction with the `while` loop. In this case the intent is to continue iterating so long as some value in the predicate successfully matches a pattern. To wit:
+Pattern matching can also be used in conjunction with the `while` loop. In this case the intent is to repeatedly run the loop body so long as some value in the predicate successfully matches a pattern. To wit:
 
 {% highlight swift %}
 enum Status {
@@ -195,7 +194,7 @@ Note that the compound predicates described above in *Complex if predicates* are
 
 ## Advanced patterns
 
-A brief overview of other patterns supported by the pattern matching mechanism follows.
+A brief overview of some of the other patterns supported by the pattern matching mechanism follows.
 
 ### Optional pattern
 
@@ -214,10 +213,9 @@ if case let .IntegerValue(theInt)? = myValue {
 }
 {% endhighlight %}
 
-
 ### Nested enumerations
 
-As before, patterns can be nested, including enumeration patterns. The above examples could also be written as:
+As before, patterns can be nested, including enumeration patterns. The previous examples could also be written as:
 
 {% highlight swift %}
 if case .Some(.IntegerValue) = myValue {
@@ -230,9 +228,12 @@ if case let .Some(.IntegerValue(theInt)) = myValue {
 {% endhighlight %}
 
 
-### Type casting patterns
+### Type checking patterns
 
-Finally, `is` and `as` can be used to check if an item of some protocol type is actually a specific, conforming concrete type, or if an item of some class type is actually an instance of a subclass.
+The type checking patterns `is` and `as` can be used to determine:
+
+* Is an instance of the protocol type `T` actually an instance of the concrete type `U` (where `U` conforms to `T`)?
+* Is an instance of the class `T` actually an instance of the class `U` (where `U` is a subclass of `T`)?
 
 {% highlight swift %}
 class Animal {
@@ -251,19 +252,121 @@ class Cat : Animal {
 
 class Dog : Animal { /* ... */ }
 
-enum Thing {
-  case SomeAnimal(Animal)
-  case SomeVegetable
-  case SomeMineral
+let myPet : Animal = // ...
+
+// 'is' if we only care about whether the downcast succeeded
+if case is Dog = myPet {
+  print("myPet is a Dog.")
 }
 
-let someThing : Thing = // ...
-
-if case .SomeAnimal(is Cat) = someThing {
-  print("someThing is an Animal, specifically a Cat")
-}
-
-if case let .SomeAnimal(theCat as Cat) = someThing {
-  print("someThing is a \(theCat.age)-year-old Cat named \(theCat.name)")
+// 'as' is we want a reference to the value as the downcasted type
+if case let myCat = myPet {
+  print("myPet is a Cat named \(myCat.name) who is \(hasFur ? "not" : "") a Sphynx cat")
 }
 {% endhighlight %}
+
+Unsurprisingly, we can nest type checking patterns within other patterns, such as the enumeration patterns described earlier.
+
+{% highlight swift %}
+enum Thing {
+  case SomeAnimal(Animal), SomeVegetable, SomeMineral
+}
+
+let anObject : Thing = // ...
+
+if case .SomeAnimal(is Cat) = anObject {
+  print("anObject is a SomeAnimal containing a Cat")
+}
+
+if case let .SomeAnimal(theCat as Cat) = anObject {
+  print("anObject contains a \(theCat.age)-year-old Cat named \(theCat.name)")
+}
+{% endhighlight %}
+
+### Other patterns
+
+At this point it should hopefully be clear how the other patterns Swift supports can be utilized in conjunction with the control flow statements. For example, Swift supports matching on ranges:
+
+{% highlight swift %}
+let myNumber = 50
+
+if case 0..<100 = myNumber {
+  print("myNumber is between 0 and 99")
+}
+{% endhighlight %}
+
+It also supports matching on expression patterns (the behavior of which defaults to comparison by `==`, and can be customized by overriding `~=`):
+
+{% highlight swift %}
+let protagonist = "jyaku"
+
+if case "jyaku" = protagonist {
+  print("you could have used a plain old 'if' statement for this")
+}
+{% endhighlight %}
+
+Theoretically, you should be able to match tuple patterns, but (as of Xcode 7.1β2) the compiler segfaults instead:
+
+{% highlight swift %}
+let a = true
+let b = true
+
+if case (true, true) = (a, b) {
+  print("both 'a' and 'b' are true")
+}
+{% endhighlight %}
+
+
+## To `switch` or not to `switch`?
+
+Before Swift 2, pattern matching showed up in only two places: multiple variable assignment, and the `switch` statement. If any of an enumeration's cases contained associated values, `switch` was the only way to manipulate instances of that enum. The exception to this was `Optional`, for which the special `if let` syntax was devised.
+
+Swift 2 grants to all enums the power of `if let`, and much more. Pattern matching and control flow logic work together, meaning that one no longer needs to (for example) write `for`-`in` loops whose bodies consist of a single `switch` statement, or alternate nesting `if` and `switch` statements.
+
+Pattern matching and control flow also obviate the need for a number of patterns. For example, it was sometimes desirable to add 'accessor' properties to enums to retrieve the associated values for specific cases:
+
+{% highlight swift %}
+extension Number {
+  var valueAsInteger : Int? {
+    switch self {
+    case let .IntegerValue(value): return value
+    default: return nil
+    }
+  }
+
+  var valueAsBoolean : Bool? {
+    switch self {
+    case let .BooleanValue(value): return value
+    default: return nil
+    }
+  }
+
+  // ...
+}
+{% endhighlight %}
+
+This way, you could use `if let` instead of `switch` if one really only cared about whether an enum instance was one specific case or not:
+
+{% highlight swift %}
+func getObjectInArray<T>(array: [T], atIndex index: Number) -> T? {
+  switch index {
+  case let .IntegerValue(index): return array[index]
+  default: return nil
+  }
+}
+
+// became...
+
+func getObjectInArray<T>(array: [T], atIndex index: Number) -> T? {
+  if let index = index.valueAsInteger {
+    return array[index]
+  }
+  return nil
+}
+{% endhighlight %}
+
+With Swift 2, such boilerplate is no longer necessary.
+
+However, `switch` statements still have their uses, the most important of which is probably **exhaustiveness checking**. For enumerations with more than three cases, `switch` statements still provide the ability to check that all cases were covered, something that `if`, `for`-`in`, and `while` cannot.
+
+This is helpful if you later go back and add cases to your enum; the compiler will flag every place you switch against that enum (unless you were lazy and used `default` or `case _` needlessly). In a large project where an enum may be switched against in hundreds or thousands of places, this feature can mean the difference between introducing undiscoverable bugs when refactoring or not.
