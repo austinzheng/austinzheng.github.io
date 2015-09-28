@@ -260,7 +260,7 @@ if case is Dog = myPet {
 }
 
 // 'as' is we want a reference to the value as the downcasted type
-if case let myCat = myPet {
+if case let myCat as Cat = myPet {
   print("myPet is a Cat named \(myCat.name) who is \(hasFur ? "not" : "") a Sphynx cat")
 }
 {% endhighlight %}
@@ -370,3 +370,5 @@ With Swift 2, such boilerplate is no longer necessary.
 However, `switch` statements still have their uses, the most important of which is probably **exhaustiveness checking**. For enumerations with more than three cases, `switch` statements still provide the ability to check that all cases were covered, something that `if`, `for`-`in`, and `while` cannot.
 
 This is helpful if you later go back and add cases to your enum; the compiler will flag every place you switch against that enum (unless you were lazy and used `default` or `case _` needlessly). In a large project where an enum may be switched against in hundreds or thousands of places, this feature can mean the difference between introducing undiscoverable bugs when refactoring or not.
+
+*Thanks to @gsimmons for catching a typo in the sample code.*
