@@ -13,6 +13,8 @@ In this article, I aim to provide a comprehensive description of how the generic
 
 The most visible example of generic programming in Swift is the humble `Array` type. In Objective-C, an `NSArray` was an `NSArray`, and it could contain objects of any type. Swift doesn't have 'just' `Array`s, though. Arrays are always parameterized by the type of the items they carry. So in Swift we have `Array<Int>`, `Array<UIView>`, and so forth. `Array` is a type, and `Int` is a type, and generics allow these two types to work together in a way that makes sense and conveys extra information.
 
+(*n.b.* The idiomatic way to represent an `Array` containing `Foo` instances in Swift is `[Foo]`. This article uses `Array<Foo>` in order to aid understanding and emphasize the fact that `Array` is an ordinary generic type; the longer form is exactly equivalent to `[Foo]`.)
+
 ## Why generics?
 
 Here are a few reasons why generic programming is useful for a statically typed language:
