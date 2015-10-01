@@ -268,7 +268,7 @@ There is a third, critically important question that the next blog post will cov
 
 * How do we define constraints on our generic type variables?
 
-Without constraints, the usefulness of generics is limited. The next post will also contain a extended example which will tie together all the concepts we discussed earlier about generics, as well as several smaller examples to try and make explicit the concepts underlying generics.
+Without constraints, the usefulness of generics is limited. The [following post]({% post_url 2015-09-29-swift-generics-pt-2 %}) discusses generics in more detail, including a description of how generic constraints work in Swift.
 
 If you are still here, thanks for reading! Generics are not a trivial topic, especially for those who haven't seen them in other languages before.
 

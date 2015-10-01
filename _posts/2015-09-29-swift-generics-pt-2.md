@@ -11,21 +11,21 @@ In this article, I aim to provide a comprehensive description of how the generic
 
 [Generic programming][link-generic] is a form of programming in which things such as types (classes, structs, enums) and functions can be defined with the help of **type parameters**. Type parameters are placeholders for actual types which are 'filled in' whenever the generic type or function is actually used.
 
-The most visible example of generic programming in Swift is the humble `Array` type. In Objective-C, an `NSArray` was an `NSArray`, and it could contain objects of any type. Swift doesn't have 'just' `Array`s, though. Arrays are always parameterized by the type of the items they carry. So in Swift we have `Array<Int>`, `Array<UIView>`, and so forth. `Array` is a type, and `Int` is a type, and generics allow these two types to work together in a way that makes sense and conveys extra information.
+The most visible example of generic programming in Swift might be the humble `Array` type. In Objective-C, instances of the array type `NSArray` could contain objects of any type. However, Swift's `Array`s are always parameterized by the type of the items they contain, and so we have instances of `Array<Int>`, `Array<UIView>`, et cetera. `Array` is a type, and `Int` is a type, and generics allow these two types to work together in a way that makes sense and conveys extra information.
 
-(*n.b.* The idiomatic way to represent an `Array` containing `Foo` instances in Swift is `[Foo]`. This article uses `Array<Foo>` in order to aid understanding and emphasize the fact that `Array` is an ordinary generic type; the longer form is exactly equivalent to `[Foo]`.)
+*An aside*: The idiomatic way to represent an `Array` containing `Foo` instances in Swift is `[Foo]`. This article uses `Array<Foo>` in order to aid understanding and emphasize the fact that `Array` is an ordinary generic type; the longer form is exactly equivalent to the `[Foo]` syntactic sugar.
 
 ## Why generics?
 
-Here are a few reasons why generic programming is useful for a statically typed language:
+Here are a few reasons why generic programming can be useful for a statically typed language:
 
-* **Type safety**. Container types (e.g. arrays) can be given information about the types of the items they hold, which allows the compiler to ensure that only the right kinds of objects can be inserted into or returned from the collection. This applies to any type which can be parameterized in terms of one or more other types, and it also applies to relationships between types.
+* **Type safety**. Container types (like arrays) can be given information about the types of the items they store, which allows the compiler to ensure that only the right kinds of objects can be inserted into or returned from the container. This applies to any type which can be parameterized in terms of one or more other types, and it also applies to relationships between types.
 
-* **Less code duplication**. In some cases you need to carry out essentially the same operation on items of varying types. Instead of writing multiple copies of the same function which differ only in terms of their argument and return value types, you can write a single generic function. This is less error-prone and can make your intent clearer.
+* **Less code duplication**. In some cases you need to carry out essentially the same operation on items of varying types. Instead of writing multiple copies of the same function which differ only in terms of their argument and return value types, you can write a single generic function. This is less error-prone, preserves type information, and can make your intent clearer.
 
 * **Library flexibility**. Libraries that expose APIs can avoid forcing their consumers to supply arguments and accept return values of a fixed type. Instead, they can abstract over these types using generics. For example, generics might allow an API function to accept not only `Array` arguments, but an instance of any type that can be treated as a collection.
 
-If you don't understand yet how generics apply to these topics, read through the rest of the article and revisit this section. Hopefully, seeing how generics work will make things clearer.
+If you don't understand yet, read through the rest of the article and then revisit this section. Hopefully, seeing how generic programming in Swift works will clarify the reasons given above.
 
 
 ## Generic entities
@@ -58,29 +58,52 @@ A generic type's type parameters can be used in the following ways:
 * As an argument type for an initializer
 * As a type parameter for another generic type used within the type definition (for example, an `Array<T>` property)
 
-Type parameters like `T` only show up in the definition of a type. Whenever that type is used, those type parameters must be replaced by actual types.
+Generic types can be instantiated in one of two ways:
 
-For example, `Array` is a generic type whose type parameter is named `Element`. This type parameter describes the type of the things the `Array` stores. When you write Swift code, you never deal with plain `Array`s or `Array<Element>`s. You always deal with `Array`s of concrete types: for example, `Array<String>` or `Array<UIWindow>`. If you ever work with `Array<T>`s, it is *always* in the context of type parameters that were defined by other types or functions.
+* The type parameters are 'filled in' when explicitly giving the variable holding the new instance a type annotation.
+* The type is inferred, but the type parameters are 'filled in' when calling an initializer or static method to create the instance.
+
+{% highlight swift %}
+struct Queue<T> { /* ... */ }
+
+// First way to instantiate
+let a1 : Queue<Int> = Queue()
+let a2 : Queue<Int> = Queue.staticFactoryMethod() // or just .staticFactoryMethod()
+
+// Second way to instantiate
+let b1 = Queue<Int>()
+let b2 = Queue<Int>.staticFactoryMethod()
+{% endhighlight %}
+
+Note that type parameters like `T` only show up in the definition of a type. Whenever that type is used, those type parameters must be replaced by actual types.
+
+For example, all instances of the generic type `Array` that exist are actually `Array`s parameterized by concrete types: for example, `Array<String>` or `Array<UIWindow>`. There are no such things as 'free' `Array`s. If you ever work with `Array<T>`s, it is *always* in the context of type parameters that were defined by other types or functions.
 
 
 ### Generic functions
 
-Functions and methods can be generic as well, either by themselves or (in the case of methods) in the context of a generic type.
+Functions, methods, properties, subscripts, and initializers can be generic as well, either by themselves or (in the case of everything but functions) in the context of a generic type.
 
 {% highlight swift %}
 // Given an item, return an array with that item repeated n times
-func populate<T>(item: T, numberOfTimes times: Int) -> [T] {
+func duplicate<T>(item: T, numberOfTimes n: Int) -> [T] {
   var buffer : [T] = []
-  for _ in 0 ..< times {
+  for _ in 0 ..< n {
     buffer.append(item)
   }
   return buffer
 }
 {% endhighlight %}
 
-Again, the type parameters are defined within the angle brackets `<` and `>` immediately following the function name. They can then be used as part of the argument or return types.
+Again, the type parameters are defined within the angle brackets `<` and `>` immediately following the function name. They can then be used in the following ways:
 
-Types can have generic methods, whether or not the type itself is generic. 
+* As the type of an argument to the function
+* As the type of the function's return value
+* As a type parameter for another generic type used in the function signature. For example, `T` can be used as part of an `Array<T?>` return type.
+
+Note that the compiler will complain if any type parameters remain unused.
+
+Generic methods can be defined on both generic and non-generic types. For example:
 
 {% highlight swift %}
 extension Result {
@@ -97,6 +120,22 @@ extension Result {
 Our `transform` method is generic, and resides within the generic type `Result`. In addition to the type parameters `T` and `U` defined by `Result`, we also have access to the type parameter `V` defined by the generic method itself.
 
 Be aware that 'shadowing' type parameters (for example, if the method had defined `U` instead of `V`) can lead to cryptic error messages.
+
+When invoking a generic function, it isn't necessary to explicitly specify what types you want the type parameters to take on. The compiler's type inference engine automatically deduces this information by examining the argument and return types:
+
+{% highlight swift %}
+// Example use of the 'duplicate:numberOfTimes:' function defined earlier.
+// T is inferred to be Int.
+let a = duplicate(52, numberOfTimes: 10)
+{% endhighlight %}
+
+In fact, attempting to explicitly set the type parameters will cause an error:
+
+{% highlight swift %}
+// Does not compile
+// Error: "Cannot explicitly specialize a generic function"
+let b = duplicate<String>("foo", numberOfTimes: 5)
+{% endhighlight %}
 
 
 ## Associated types
@@ -137,7 +176,7 @@ The *associated type* `Food` is defined to be `Eucalyptus` for `Koala`s. In othe
 If a conforming type is generic, you can also use the type parameters to help define the associated types:
 
 {% highlight swift %}
-// Gourmand Wolf is a picky eater and will only eat their favorite food.
+// Gourmand Wolf is a picky eater and will only eat his or her favorite food.
 // Individual wolves may prefer different foods, though.
 class GourmandWolf<FoodType> : FoodEatingType {
   var isSatiated : Bool { return false }
@@ -220,7 +259,7 @@ if let result = findLargestInArray(arrayToTest) {
 // prints: "the largest element in the array is 100"
 {% endhighlight %}
 
-The paradox of generics is as such: the more you narrow down your generic type parameters by adding constraints, the more you're allowed to do with them. Type parameters that are completely unconstrained can't be used for much more than swapping or insertion/removal from collections. Type parameters that are tightly constrained gain access to many more methods and properties than they would otherwise, and can be used as arguments to many more functions.
+This is, in some sense, the paradox of generics: the more you narrow down your type parameters by adding constraints, the more you're allowed to do with them. Type parameters that are completely unconstrained can't be used for much more than swapping or insertion/removal from collections. Type parameters that are tightly constrained gain access to many more methods and properties than they would otherwise, and can be used as arguments to many more functions.
 
 
 ### Simple constraints
@@ -301,9 +340,8 @@ In Swift, [extensions][link-extension] allow you to add methods to any type, eve
 * For a **generic type** (like `Array`), you can add methods which are only available if the generic type's type parameters (or those parameters' associated types) match a certain constraint.
 * For a **protocol with associated types** (like `CollectionType`), you can add default implementations for protocol methods which are only available if the associated types match a certain constraint.
 
-Methods on constrained extensions are a great replacement for generic functions that have elaborate, difficult-to-read generic type signatures.
+Methods on constrained extensions are a great replacement for generic functions that have elaborate, difficult-to-read generic type signatures. You can also define computed properties, subscripts, and initializers in constrained extensions.
 
-(*n.b.* In addition to methods, extensions also support computed properties, initializers, and subscripts, and all of this applies to those as well.)
 
 ### Syntax and limitations
 
@@ -423,7 +461,7 @@ Because Java needed to maintain backwards compatibility when generics were intro
 
 Another approach, taken by C++, is to perform [specialization][link-specialization]. In this approach, different implementations of the same generic entity (in C++, *template*) may be generated by the compiler, each implementation corresponding to use of that entity by specific types. Each implementation might be optimized differently based on the concrete types that it takes.
 
-Swift's generics support is closer to that of C++. The Swift compiler can emit different variants of the same generic function if doing so will allow for increased optimization. Type information is retained at runtime, allowing you to write code like the following:
+Swift's generics support is closer to that of C++. The Swift compiler can emit a 'universal' implementation of a generic function that works for any type, and also create different specialized variants for better performance. Swift has *reified generics*, meaning that type information is accessible at runtime. This allows you to write code like the following:
 
 {% highlight swift %}
 protocol SimpleInitable { init() }
@@ -434,18 +472,18 @@ func emptyInstances<T : SimpleInitable>(count: Int) -> [T] {
 }
 {% endhighlight %}
 
-Without specialization, we might invoke this method with differing return types, but it would be impossible at run-time to know exactly what concrete type `T` should be used to fill the array.
+Without reified generics, we might invoke this method with differing return types, but it would be impossible at runtime to know exactly what concrete type `T` should be used to fill the array.
 
 
 ### Limitations
 
-Generics are a compile-time construct. Generic code is specialized at compile time, and all the information that generics require to function must be available at compile time. This means that generics aren't a replacement for runtime type checking and casting using `is` and `as?`, or for overriding methods in subclasses.
+Generics are a compile-time construct. Generic code is specialized at compile time, and all the information that generics require to function must be available at compile time. This means that generics aren't a replacement for runtime type checking and casting using `is` and `as?`, for runtime type introspection using `dynamicType`, or for overriding methods in subclasses.
 
 If a generics-based solution to a given problem seems excessively troublesome (in particular, if you run into issues getting the compiler to accept your code), ask yourself:
 
 * Could I replace my use of generics with multiple hand-coded non-generic copies of my generic functions and types? (In other words, could I manually specialize my code?)
 
-* Is my program relying on information known only at run-time in order to determine what concrete types should be used when invoking my generic functions or types? For example, a function returns instances of class or protocol `A`, and you are trying to use generics to implement polymorphic behavior depending on what subclass or conforming type is actually dispensed.
+* Is my program relying on information known only at runtime in order to determine what concrete types should be used when invoking my generic functions or types? For example, a function returns instances of class or protocol `A`, and you are trying to use generics to implement [polymorphic behavior][link-subtyping] depending on what subclass or conforming type is actually dispensed.
 
 If your answer to the first question is 'no' and/or your answer to the second question is 'yes', generics are almost certainly not the right tool for whatever you are trying to accomplish.
 
@@ -465,3 +503,4 @@ Suggestions and criticism are welcome. In particular, if any of the subject matt
 [link-rawrep]:            https://developer.apple.com/library/prerelease/ios/documentation/Swift/Reference/Swift_RawRepresentable_Protocol/index.html
 [link-extension]:         https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Extensions.html
 [link-collectiontype]:    https://developer.apple.com/library/prerelease/ios/documentation/Swift/Reference/Swift_CollectionType_Protocol/index.html
+[link-subtyping]:         https://en.wikipedia.org/wiki/Subtyping

@@ -9,7 +9,7 @@ tags: swift
 
 By far the most important news regarding Swift's future was the announcement that the language will be open-sourced later this year under an OSI-compliant license, with Apple taking it upon themselves to port the compiler and standard library to Linux. The possibilities are limitless - imagine Swift running on embedded systems, powering back-end services, or even serving as a next-generation application language for certain other smartphone platforms.
 
-The next iteration of Apple's fledgling programming language also includes a number of new features, including protocol extensions, novel forms of control flow, and exception-style error handling. This article will discuss the latter two topics. A future article will discuss protocol extensions and complete my (long-stalled) series on generics.
+The next iteration of Apple's fledgling programming language also includes a number of new features, including protocol extensions, novel forms of control flow, and exception-style error handling. This article will discuss the latter two topics. A [future article]({% post_url 2015-09-29-swift-generics-pt-2 %}) will discuss protocol extensions and complete my (long-stalled) series on generics.
 
 ## do and repeat-while
 
