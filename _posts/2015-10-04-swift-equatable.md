@@ -320,6 +320,24 @@ class Foo : AnyEquatable { }
 15.equals(Foo())
 {% endhighlight %}
 
+Our `AnyEquatable` protocol isn't a perfect replacement for `Equatable`. If we wanted to implement our `threeWayEquals()` using `AnyEquatable`, we'd still need to constrain at least one of the arguments' types to be `Equatable` so we have access to our `equals()` method:
+
+{% highlight swift %}
+func threeWayEquals<T where T : AnyEquatable, T : Equatable>(a: T,
+  b: AnyEquatable,
+  c: AnyEquatable) -> Bool {
+    return a.equals(b) && a.equals(c)
+}
+{% endhighlight %}
+
+However, if we already know at least one of the concrete types we want to compare, we no longer need to make our function generic at all.
+
+{% highlight swift %}
+func threeWayEquals(a: Int, b: AnyEquatable, c: AnyEquatable) -> Bool {
+  return a.equals(b) && a.equals(c)
+}
+{% endhighlight %}
+
 
 ## Conclusion
 
