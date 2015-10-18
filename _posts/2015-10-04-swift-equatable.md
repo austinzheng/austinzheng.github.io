@@ -104,7 +104,7 @@ struct Coordinate : Equatable {
 }
 
 func ==(lhs: Coordinate, rhs: Coordinate) -> Bool {
-  return lhs.x == lhs.y && rhs.x == rhs.y
+  return lhs.x == rhs.x && lhs.y == rhs.y
 }
 {% endhighlight %}
 
